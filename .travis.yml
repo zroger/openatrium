@@ -1,0 +1,22 @@
+language: php
+php:
+  - 5.3
+  - 5.4
+mysql:
+  database: drupal
+  username: root
+  encoding: utf8
+env: DOCROOT=/tmp/openatrium
+before_script:
+  - pyrus channel-discover pear.drush.org
+  - pyrus install drush/drush
+  - drush make --no-core --contrib-destination=. drupal-org.make .
+  - drush make drupal-org-core.make $DOCROOT
+  - cp -r . $DOCROOT/profiles/openatrium
+  - cd $DOCROOT
+  - drush site-install openatrium --db-url=mysql://root:@localhost/drupal --yes
+  - drush cc all
+  - drush runserver 8080 &
+  - cd -
+  - composer install
+script: bin/behat --profile=travis-ci
