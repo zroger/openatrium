@@ -1,7 +1,6 @@
 language: php
 php:
   - 5.3
-  - 5.4
 mysql:
   database: drupal
   username: root
@@ -11,8 +10,8 @@ before_script:
   - pyrus channel-discover pear.drush.org
   - pyrus install drush/drush
   - phpenv rehash
-  - drush make --no-core --contrib-destination=. drupal-org.make .
-  - drush make drupal-org-core.make $DOCROOT
+  - drush -v make --no-core --contrib-destination=. drupal-org.make .
+  - drush -v make drupal-org-core.make $DOCROOT
   - cp -r . $DOCROOT/profiles/openatrium
   - cd $DOCROOT
   - drush -v site-install openatrium --db-url=mysql://root:@localhost/drupal --yes
