@@ -15,7 +15,7 @@ before_script:
   - drush make drupal-org-core.make $DOCROOT
   - cp -r . $DOCROOT/profiles/openatrium
   - cd $DOCROOT
-  - drush site-install openatrium --db-url=mysql://root:@localhost/drupal --yes
+  - drush -v site-install openatrium --db-url=mysql://root:@localhost/drupal --yes
   - drush cc all
   - drush runserver 8080 &
   - cd -
